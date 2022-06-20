@@ -43,5 +43,4 @@ if __name__ == '__main__':
     
     # Enviar a la funcion
     _main(lambda x: eval(funcion), float(parametroX), float(parametroY), int(iteraciones), float(error))    
-    # _main(lambda x: 4*x**4-9*x**2+1, 0, 1,5,5)
-    # _main(lambda x: x**3 + 4*(x**2)-10, 1, 2)
+
