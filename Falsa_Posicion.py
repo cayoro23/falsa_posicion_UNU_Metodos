@@ -1,4 +1,4 @@
-def _main(funcion, x_i, x_f, iteraciones=1000, error_r=0.01) -> None:
+def _main(funcion, x_i, x_f, iteraciones, error_r) -> None:
     # Icicializar las variables
     solucion = None
     contador = 0
