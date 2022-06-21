@@ -6,6 +6,7 @@ def _main(funcion, x_i, x_f, iteraciones, error_r) -> None:
     solucion = None
     contador = 0
     error_calculado = 101
+    array1 = []
     # Evaluar si la raiz esta dentro del intervalo
     if funcion(x_i) * funcion(x_f) <= 0:
         # Calcular la solucion
@@ -14,33 +15,36 @@ def _main(funcion, x_i, x_f, iteraciones, error_r) -> None:
             solucion = x_f - ((funcion(x_f) * (x_f - x_i)) /
                               (funcion(x_f) - funcion(x_i)))
             error_calculado = abs((solucion - x_i) / solucion) * 100
+            #agregar eje x
+            ejex = round(x_i,5)
             # Reedefinir el nuevo intervalo
+            
             if funcion(x_i) * funcion(solucion) >= 0:
                 x_i = solucion
             else:
                 x_f = solucion
 
-
-            array1 = []
-
-            nombre = solucion
-            edad = error_calculado
-            lista = [nombre, edad]
+            ejey = round(x_f,1)
+            soluciones = round(solucion,5)
+            errores = error_calculado
+            lista = [ejex, ejey, soluciones, errores]
             array1.append(lista)
 
-        # # Imprimir el resultado
+            # print('-----------------------------------------')
+            # print('La solucion aproximada es: {:.5f}'.format(solucion))
+            # print('Encontrada en: {:.0f}'.format(contador)+' iteraciones')
+            # print('Con un error relativo de: {:.1f}'.format(error_calculado)+'%')
+            
+        data = pd.DataFrame(array1, columns=['EJE X', 'EJE Y','SOLUCION','ERROR'])
 
-        #     print('-----------------------------------------')
-        #     print('La solucion aproximada es: {:.5f}'.format(solucion))
-        #     print('Encontrada en: {:.0f}'.format(contador)+' iteraciones')
-        #     print('Con un error relativo de: {:.1f}'.format(error_calculado)+'%')
+        print(data)
+
+        # Imprimir el resultado
+
 
     else:
         print('-----------------------------------------')
         print("No existe solucion en ese intervalo")
-
-
-mostrarPanda(array1)
 
 
 if __name__ == '__main__':
@@ -64,7 +68,3 @@ if __name__ == '__main__':
     #  x**3 + 4*(x**2)-10, 1, 2)
 
 
-def mostrarPanda(array1):
-    data = pd.DataFrame(array1, columns=['EJE X', 'EJE Y'])
-
-    print(data)
