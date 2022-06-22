@@ -49,14 +49,25 @@ def _main(funcion, x_i, x_f, iteraciones, error_r) -> None:
         diccionario['ERRORES'] = erroress
 
         # Visualizar pandas
-        data = pd.DataFrame(diccionario)
-        print(data)
-        # df = pd.DataFrame(array1)
-        # df.groupby('EJE X', 'EJE Y','SOLUCION','ERROR').plot(kind='barh',legend='Reverse')
+        datos = pd.DataFrame(diccionario)
+        print(datos)
         # Graficar
-        # x = np.linspace(0, 10, 100)
-        # plt.plot(x, np.sin(x))
-        # plt.show()
+        fig, ax = plt.subplots(2, 2, sharey=True)
+        ax[0, 0].plot(datos['EJE X'], marker='^',
+                      color='tab:orange', label='EJE X')
+        ax[0, 1].plot(datos['EJE Y'], marker='o',
+                      color='tab:red', label='EJE Y')
+        ax[1, 0].plot(datos['SOLUCIONES'], marker='*',
+                      color='tab:blue', label='SOLUCIONES')
+        ax[1, 1].plot(datos['ERRORES'], marker='+',
+                      color='tab:green', label='ERRORES')
+        # Agregar etiquetas
+        ax[0, 0].legend(loc='upper right')
+        ax[0, 1].legend(loc='upper right')
+        ax[1, 0].legend(loc='upper right')
+        ax[1, 1].legend(loc='upper right')
+        # Mostrar grafico
+        plt.show()
 
     else:
         print('-----------------------------------------')
