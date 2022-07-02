@@ -1,9 +1,11 @@
 import pandas as pd
+from Grafico import Grafico
 import matplotlib.pyplot as plt
 import numpy as np
 
 
 def _main(funcion, x_i, x_f, iteraciones, error_r) -> None:
+
     # Icicializar las variables
     solucion = None
     contador = 0
@@ -20,8 +22,11 @@ def _main(funcion, x_i, x_f, iteraciones, error_r) -> None:
         # Calcular la solucion
         while contador <= iteraciones and error_calculado >= error_r:
             contador += 1
+
+            # Formula de falsa posicion
             solucion = x_f - ((funcion(x_f) * (x_f - x_i)) /
                               (funcion(x_f) - funcion(x_i)))
+
             error_calculado = abs((solucion - x_i) / solucion) * 100
 
             # agregar eje x
@@ -37,6 +42,7 @@ def _main(funcion, x_i, x_f, iteraciones, error_r) -> None:
             ejey = round(x_f, 1)
             soluciones = round(solucion, 5)
             errores = error_calculado
+
             # Agregar a diccionario
             ejesx.append(ejex)
             ejesy.append(ejey)
@@ -51,23 +57,9 @@ def _main(funcion, x_i, x_f, iteraciones, error_r) -> None:
         # Visualizar pandas
         datos = pd.DataFrame(diccionario)
         print(datos)
-        # Graficar
-        fig, ax = plt.subplots(2, 2, sharey=True)
-        ax[0, 0].plot(datos['EJE X'], marker='^',
-                      color='tab:orange', label='EJE X')
-        ax[0, 1].plot(datos['EJE Y'], marker='o',
-                      color='tab:red', label='EJE Y')
-        ax[1, 0].plot(datos['SOLUCIONES'], marker='*',
-                      color='tab:blue', label='SOLUCIONES')
-        ax[1, 1].plot(datos['ERRORES'], marker='+',
-                      color='tab:green', label='ERRORES')
-        # Agregar etiquetas
-        ax[0, 0].legend(loc='upper right')
-        ax[0, 1].legend(loc='upper right')
-        ax[1, 0].legend(loc='upper right')
-        ax[1, 1].legend(loc='upper right')
-        # Mostrar grafico
-        plt.show()
+
+        grafico = Grafico(datos)
+        grafico.agregarGrafico()
 
     else:
         print('-----------------------------------------')
@@ -75,6 +67,7 @@ def _main(funcion, x_i, x_f, iteraciones, error_r) -> None:
 
 
 if __name__ == '__main__':
+
     # Funcion a evaluar
     funcion = input('Ingrese la funcion a evaluar: ')
     parametroX = input('Ingrese el parametro X: ')
@@ -92,5 +85,3 @@ if __name__ == '__main__':
     _main(lambda x: eval(funcion), float(parametroX),
           float(parametroY), int(iteraciones), float(error))
     #  x: 4*x**4-9*x**2+1, 0, 1,5,0.01)
-    #  x**3 + 4*(x**2)-10, 1, 2)
-    #  x**3 + 4*(x**2)-10, 1, 2, 0.01)
